@@ -6,40 +6,50 @@ let users = [
     {
         firstName: "John",
         lastName: "wick",
-        email:"johnwick@gamil.com",
+        email:"johnwick@gmail.com",
         DOB:"22-01-1990",
     },
     {
         firstName: "John",
         lastName: "smith",
-        email:"johnsmith@gamil.com",
+        email:"johnsmith@gmail.com",
         DOB:"21-07-1983",
     },
     {
         firstName: "Joyal",
         lastName: "white",
-        email:"joyalwhite@gamil.com",
+        email:"joyalwhite@gmail.com",
         DOB:"21-03-1989",
     },
 ];
 
 // GET request: Retrieve all users
 router.get("/",(req,res)=>{
-  // Copy the code here
-  res.send(users)//This line is to be replaced with actual return value
+  res.send(users)
 });
 
 // GET by specific ID request: Retrieve a single user with email ID
 router.get("/:email",(req,res)=>{
-  // Copy the code here
-  res.send("Yet to be implemented")//This line is to be replaced with actual return value
+  // Extract the email parameter from the request URL
+  const email = req.params.email;
+  // Filter the users array to find users whose email matches the extracted email parameter
+  let filtered_users = users.filter((user) => user.email === email);
+  // Send the filtered_users array as the response to the client
+  res.send(filtered_users);
 });
 
 
 // POST request: Create a new user
 router.post("/",(req,res)=>{
-  // Copy the code here
-  res.send("Yet to be implemented")//This line is to be replaced with actual return value
+  // Push a new user object into the users array based on query parameters from the request
+  users.push({
+    "firstName": req.query.firstName,
+    "lastName": req.query.lastName,
+    "email": req.query.email,
+    "DOB": req.query.DOB
+});
+// Send a success message as the response, indicating the user has been added
+res.send("The user " + req.query.firstName + " has been added!");
 });
 
 
